@@ -17,7 +17,7 @@ class UserRegister(MethodView):
     def post(self, user_data):
         user = UserModel(
             name=user_data["name"],
-            u_email=user_data["email"],
+            u_email=user_data["u_email"],
             password=pbkdf2_sha256.hash(user_data["password"])
         )
         try:
@@ -37,7 +37,7 @@ class UserLogin(MethodView):
     def post(self, user_data):
         # TODO: add class method find_by_username
         user = UserModel.query.filter(
-            UserModel.username == user_data["email"]
+            UserModel.u_email == user_data["u_email"]
         ).first()
         # user = UserModel.find_by_username(user_data["email"])
 
