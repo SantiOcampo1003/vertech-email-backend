@@ -1,9 +1,18 @@
 from flask import Flask
-from app.routes.main_routes import main_routes
+from flask_cors import CORS
+from dotenv import load_dotenv
 
-app = Flask(__name__)
+import config
+from app.database import db
 
-app.register_blueprint(main_routes)
+def create_app(db_url=None):
+    # Load environment variables first
+    load_dotenv()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    app = Flask(__name__)
+    # Configure the app using the Config class
+    app.config.from_object(config.get_config())
+
+    db.init_app(app)
+
+    return app
