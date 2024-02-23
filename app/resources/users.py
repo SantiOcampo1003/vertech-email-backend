@@ -29,3 +29,20 @@ class UserRegister(MethodView):
                 400,
                 message="Username already exists."
             )
+
+
+@blp.route("/api/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserSchema)
+    def post(self, user_data):
+        # TODO: add class method find_by_username
+        user = UserModel.query.filter(
+            UserModel.username == user_data["email"]
+        ).first()
+        # user = UserModel.find_by_username(user_data["email"])
+
+        if user and pbkdf2_sha256.verify(user_data["password"], user.password):
+            access_token = create_access_token(identity=user.id, fresh=True, expires_delta=timedelta(weeks=1))
+            return {"access_token": access_token, "u_email": user.u_email}, 200
+
+        abort(401, message="Invalid credentials.")
