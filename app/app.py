@@ -29,7 +29,7 @@ def create_app(db_url=None):
 
     api = Api(app)
 
-    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+    # app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
     jwt = JWTManager(app)
 

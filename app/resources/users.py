@@ -4,7 +4,7 @@ from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt, create_refresh_token, get_jwt_identity
 from datetime import timedelta
 from ..models.user import UserModel
-from ..schemas import UserSchema
+from ..schemas import UserSchema, UserLoginSchema
 
 from sqlalchemy.exc import IntegrityError
 
@@ -33,7 +33,7 @@ class UserRegister(MethodView):
 
 @blp.route("/api/login")
 class UserLogin(MethodView):
-    @blp.arguments(UserSchema)
+    @blp.arguments(UserLoginSchema)
     def post(self, user_data):
         # TODO: add class method find_by_username
         user = UserModel.query.filter(

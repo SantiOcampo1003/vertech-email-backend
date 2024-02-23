@@ -18,6 +18,11 @@ class PlainEmailSchema(Schema):
     recipient_id = fields.Int(required=True)
 
 
+class UserLoginSchema(Schema):
+    u_email = fields.Email(required=True)
+    password = fields.Str(required=True, load_only=True)
+
+
 class EmailSchema(PlainEmailSchema):
     sender = fields.Nested(PlainUserSchema(), dump_only=True)
     recipient = fields.Nested(PlainUserSchema(), dump_only=True)
