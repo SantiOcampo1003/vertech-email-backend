@@ -4,7 +4,7 @@ from marshmallow import Schema, fields
 class PlainUserSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
-    email = fields.Email(required=True)
+    u_email = fields.Email(required=True)
     # Never return password
     password = fields.Str(required=True, load_only=True)
 
@@ -13,10 +13,16 @@ class PlainEmailSchema(Schema):
     id = fields.Int(dump_only=True)
     subject = fields.Str(required=True)
     body = fields.Str(required=True)
-    timestamp = fields.DateTime()
+    # timestamp = fields.DateTime()
     sender_id = fields.Int(required=True)
     recipient_id = fields.Int(required=True)
 
 
+class EmailSchema(PlainEmailSchema):
+    sender = fields.Nested(PlainUserSchema(), dump_only=True)
+    recipient = fields.Nested(PlainUserSchema(), dump_only=True)
+
+
 class UserSchema(PlainUserSchema):
-    emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
+    received_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
+    sent_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
