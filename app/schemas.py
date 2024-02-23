@@ -1,9 +1,13 @@
 from marshmallow import Schema, fields
+
+
 class PlainUserSchema(Schema):
     id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
     email = fields.Email(required=True)
     # Never return password
     password = fields.Str(required=True, load_only=True)
+
 
 class PlainEmailSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -13,6 +17,6 @@ class PlainEmailSchema(Schema):
     sender_id = fields.Int(required=True)
     recipient_id = fields.Int(required=True)
 
+
 class UserSchema(PlainUserSchema):
     emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
-

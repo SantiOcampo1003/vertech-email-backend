@@ -1,15 +1,15 @@
-from ..database.db import db
+from app.database.db import db
 
 class UserModel(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=False)
+    name = db.Column(db.String(), unique=False, nullable=False)
     u_email = db.Column(db.String(), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
 
-    sent_emails = db.relationship("EmailModel", back_populates="sender", lazy="dynamic")
-    received_emails = db.relationship("EmailModel", back_populates="recipient", lazy="dynamic")
+    sent_emails = db.relationship("EmailModel", back_populates="sender", foreign_keys="[EmailModel.sender_id]", lazy="dynamic")
+    received_emails = db.relationship("EmailModel", back_populates="recipient", foreign_keys="[EmailModel.recipient_id]", lazy="dynamic")
 
     def json(self):
         return {
