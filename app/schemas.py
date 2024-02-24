@@ -17,6 +17,10 @@ class PlainEmailSchema(Schema):
     sender_id = fields.Int(required=True)
     recipient_id = fields.Int(required=True)
 
+class EmailFormSchema(Schema):
+    subject= fields.Str(required=True)
+    body = fields.Str(required=True)
+    recipient_email = fields.Email(required=True)
 
 class UserLoginSchema(Schema):
     u_email = fields.Email(required=True)
@@ -31,3 +35,6 @@ class EmailSchema(PlainEmailSchema):
 class UserSchema(PlainUserSchema):
     received_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
     sent_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
+
+class QueryParamsSchema(Schema):
+    _id = fields.Int(required=True)
