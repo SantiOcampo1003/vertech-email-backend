@@ -2,7 +2,7 @@ from marshmallow import Schema, fields
 
 
 class PlainUserSchema(Schema):
-    id = fields.Int(dump_only=True)
+    #id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     u_email = fields.Email(required=True)
     # Never return password
@@ -29,12 +29,11 @@ class UserLoginSchema(Schema):
 
 class EmailSchema(PlainEmailSchema):
     sender = fields.Nested(PlainUserSchema(), dump_only=True)
-    recipient = fields.Nested(PlainUserSchema(), dump_only=True)
+    #recipient = fields.Nested(PlainUserSchema(), dump_only=True)
 
 
 class UserSchema(PlainUserSchema):
     received_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
     sent_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
 
-class QueryParamsSchema(Schema):
-    _id = fields.Int(required=True)
+
