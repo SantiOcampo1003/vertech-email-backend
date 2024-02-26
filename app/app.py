@@ -19,7 +19,8 @@ from app.resources.users import blp as UsersBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
-    CORS(app, origins=["http://192.168.1.6:8080", "http://localhost:8080"])
+    frontend_url = os.getenv("FRONTED_URL")
+    CORS(app, origins=["http://192.168.1.6:8080", "http://localhost:8080", frontend_url])
     load_dotenv()
     app.config.from_object(config.get_config())
 
@@ -29,7 +30,7 @@ def create_app(db_url=None):
 
     api = Api(app)
 
-    # app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 
     jwt = JWTManager(app)
 
