@@ -19,7 +19,7 @@ from app.resources.users import blp as UsersBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
-    CORS(app, origins=["http://127.0.0.1:9000", "http://localhost:9000"])
+    CORS(app, origins=["http://192.168.1.6:8080", "http://localhost:8080"])
     load_dotenv()
     app.config.from_object(config.get_config())
 
