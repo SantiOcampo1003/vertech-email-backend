@@ -35,14 +35,10 @@ class UserRegister(MethodView):
 class UserLogin(MethodView):
     @blp.arguments(UserLoginSchema)
     def post(self, user_data):
-        # TODO: add class method find_by_username
-        user = UserModel.query.filter(
-            UserModel.u_email == user_data["u_email"]
-        ).first()
-        # user = UserModel.find_by_username(user_data["email"])
+        user = UserModel.find_by_u_email(user_data["u_email"])
 
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             access_token = create_access_token(identity=user.id, fresh=True, expires_delta=timedelta(weeks=1))
-            return {"access_token": access_token, "u_email": user.u_email}, 200
+            return {"access_token": access_token, **user.json()}, 200
 
         abort(401, message="Invalid credentials.")

@@ -11,16 +11,14 @@ from app.database.db import db
 
 from flask_cors import CORS
 
-# from app.resources.emails import blp as QueryBlueprint
-# from app.resources.users import blp as CommentBlueprint
 from app.resources.emails import blp as EmailsBlueprint
 from app.resources.users import blp as UsersBlueprint
 
 
 def create_app(db_url=None):
     app = Flask(__name__)
-    frontend_url = os.getenv("FRONTED_URL")
-    CORS(app, origins=["http://192.168.1.6:8080", "http://localhost:8080", frontend_url])
+    frontend_url = os.getenv("FRONTEND_URL")
+    CORS(app, origins=[frontend_url or "http://192.168.1.6:8080", "http://localhost:8080"])
     load_dotenv()
     app.config.from_object(config.get_config())
 
