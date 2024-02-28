@@ -43,7 +43,7 @@ jobs:
             type=sha
 
       - name: Set Flask environment variables
-          run:|
+        run: |
             echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
             echo "FRONTED_URL=${{ secrets.FRONTED_URL }}" >> .env
         env:
