@@ -46,9 +46,13 @@ jobs:
         run: |
             echo "JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}" >> .env
             echo "FRONTED_URL=${{ secrets.FRONTED_URL }}" >> .env
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+            echo "FLASK_ENV=${{ secrets.FLASK_ENV }}" >> .env
         env:
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           FRONTED_URL: ${{ secrets.FRONTED_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FLASK_ENV: ${{ secrets.FLASK_ENV }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
