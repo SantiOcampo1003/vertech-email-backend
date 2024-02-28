@@ -13,12 +13,13 @@ class PlainEmailSchema(Schema):
     id = fields.Int(dump_only=True)
     subject = fields.Str(required=True)
     body = fields.Str(required=True)
-    # timestamp = fields.DateTime()
+    timestamp = fields.DateTime()
     sender_id = fields.Int(required=True)
     recipient_id = fields.Int(required=True)
 
 class EmailFormSchema(Schema):
-    subject= fields.Str(required=True)
+    subject = fields.Str(required=True)
+    timestamp = fields.DateTime()
     body = fields.Str(required=True)
     recipient_email = fields.Email(required=True)
 
