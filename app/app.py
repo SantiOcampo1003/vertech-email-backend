@@ -15,7 +15,7 @@ from app.resources.emails import blp as EmailsBlueprint
 from app.resources.users import blp as UsersBlueprint
 
 
-def create_app(db_url=None):
+def create_app():
     app = Flask(__name__)
     frontend_url = os.getenv("FRONTEND_URL")
     CORS(app, origins=[frontend_url or "http://192.168.1.6:8080", "http://localhost:8080"])
