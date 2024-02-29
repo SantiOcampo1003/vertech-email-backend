@@ -14,8 +14,7 @@ class PlainEmailSchema(Schema):
     subject = fields.Str(required=True)
     body = fields.Str(required=True)
     timestamp = fields.DateTime()
-    sender_id = fields.Int(required=True)
-    recipient_id = fields.Int(required=True)
+
 
 class EmailFormSchema(Schema):
     subject = fields.Str(required=True)
@@ -30,7 +29,7 @@ class UserLoginSchema(Schema):
 
 class EmailSchema(PlainEmailSchema):
     sender = fields.Nested(PlainUserSchema(), dump_only=True)
-    #recipient = fields.Nested(PlainUserSchema(), dump_only=True)
+    recipient = fields.Nested(PlainUserSchema(), dump_only=True)
 
 
 class UserSchema(PlainUserSchema):
