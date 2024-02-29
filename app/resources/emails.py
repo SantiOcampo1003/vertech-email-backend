@@ -23,16 +23,17 @@ class Email(MethodView):
 
         if recipient is None:
             abort(404, message="Recipient not found")
-        
+
+        email_data.pop("recipient_email")
         email = EmailModel(sender_id=current_user_id,
-                           recipient_id=recipient.id, body=email_data["body"], subject=email_data["subject"])
-        
+                           recipient_id=recipient.id, **email_data)
+
         try:
             email.save_to_db()
-            return email, 201 
+            return email, 201
         except SQLAlchemyError as e:
             abort(500, message="An error occurred while inserting the email.")
-    
+
 @blp.route("/api/emails")
 class Emails(MethodView):
     @jwt_required()
