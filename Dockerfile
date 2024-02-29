@@ -1,12 +1,7 @@
-FROM python:3.8-slim-buster
-
-WORKDIR /python-docker
-
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
+FROM python:3.12
+WORKDIR /email-backend
+COPY ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY ./.env .env
 COPY . .
-
-ENV FLASK_APP=./app/app.py
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["/bin/bash", "docker-entrypoint.sh"]
