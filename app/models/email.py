@@ -7,6 +7,7 @@ class EmailModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.Text, nullable=False)
     body = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.TIMESTAMP, nullable=False)
     sender_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
     recipient_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
     sender = db.relationship("UserModel", foreign_keys=[sender_id], back_populates="sent_emails")

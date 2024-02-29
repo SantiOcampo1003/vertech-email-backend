@@ -44,7 +44,8 @@ def test_send_email(client):
     response_send_email = client.post(
         '/api/emails',
         headers={'Authorization': f'Bearer {access_token}'},
-        json={'recipient_email': 'recipient@example.com', 'subject': 'Test Subject', 'body': 'Test Body'}
+        json={'recipient_email': 'recipient@example.com', 'subject': 'Test Subject', 'body': 'Test Body',
+              'timestamp': '2024-02-29T01:32:18.487Z'}
     )
     assert response_send_email.status_code == 201
      
