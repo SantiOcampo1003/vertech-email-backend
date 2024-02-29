@@ -109,6 +109,3 @@ def test_get_users(client):
     assert response.status_code == 200
     assert isinstance(response.json, list)
     assert len(response.json) > 0
-
-
-    
