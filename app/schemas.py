@@ -82,5 +82,3 @@ class UserSchema(PlainUserSchema):
     """
     received_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
     sent_emails = fields.List(fields.Nested(PlainEmailSchema()), dump_only=True)
-
-
